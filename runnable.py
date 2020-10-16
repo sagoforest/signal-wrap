@@ -1,30 +1,35 @@
-from signal_factory import SignalFactory
-from fourier_wrap_processor import FourierWrapProcessor
-from phasor import Phasor
-import plot_methods as plots
+from domain.signal_factory import SignalFactory
+from domain.wrap_processor import WrapProcessor
+from domain.phasor import Phasor
+from ui.signals_view import SignalsView
+from ui.interactive_view.interactive_view import InteractiveView
+from ui.uiutil import UiUtil
 
-# generate signal
+# create a few useful things
+phasor = Phasor(1)
 signalFactory = SignalFactory()
-fourierWrapProcessor = FourierWrapProcessor()
+wrapProcessor = WrapProcessor(phasor)
 
-T = 12
-fs = 1000
-signalA = signalFactory.createSinusoid("Signal A", T, fs, 1, 0).offset(1)
-signalB = signalFactory.createSinusoid("Signal B", T, fs, 5.5, 0).offset(1)
-signalC = signalFactory.combineSignals("Signal A + B", signalA, signalB).scale(1/4)
+Ts = 12  # duration of the signals in seconds
+fs = 1000  # sampling frequency
+
+# generate some signals
+signalA = signalFactory.createSinusoid("Signal A", Ts, fs, 1, 0).offset(1)
+signalB = signalFactory.createSinusoid("Signal B", Ts, fs, 5.5, 0).offset(1)
+signalC = signalFactory.combineSignals("Signal A + B",
+                                       signalA,
+                                       signalB).scale(1/4)
 
 # this is the centroid of the wound signal over several winding frequencies
-frequencyAmp = signalFactory.createFrequencyAmplitude(signalC, 6, fourierWrapProcessor)
-
-# this phasor is used in the plot callback
-phasor = Phasor(1)
-def generate_wrap(val):
-    phasor.frequencyHz = val
-    return fourierWrapProcessor.wrap(signalC, phasor)
+frequencyAmp = signalFactory.createFrequencyAmplitude(signalC,
+                                                      6,
+                                                      wrapProcessor)
 
 # the art corner
-plots.signal_plots([signalA, signalB, signalC])
-p = plots.interactive_plot(phasor.frequencyHz, generate_wrap, frequencyAmp)
-plots.show()
+initialWindingFrequencyHz = 1
+SignalsView().show([signalA, signalB, signalC])
+interactive_view = InteractiveView(initialWindingFrequencyHz,
+                                   lambda frequencyHz: wrapProcessor.wrap(signalC, frequencyHz))
+interactive_view.show(frequencyAmp)
 
-
+UiUtil.show()

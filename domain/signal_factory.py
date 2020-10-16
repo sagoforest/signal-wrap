@@ -1,5 +1,5 @@
-from signal_base import SignalBase
-from phasor import Phasor
+from domain.signal_base import SignalBase
+from domain.phasor import Phasor
 import numpy as np
 class SignalFactory(object):
 
@@ -15,12 +15,10 @@ class SignalFactory(object):
         return SignalBase(x, y, name)
 
     def createFrequencyAmplitude(self, signal, maxFreqHz, fourierWrapProcessor):
-        phasor = Phasor(0)
         freqsHz = np.arange(0, maxFreqHz, 0.01)
         freqAmp = [0]*len(freqsHz)
         for index in range(len(freqsHz)):
-            phasor.frequencyHz = freqsHz[index]
-            wrap = fourierWrapProcessor.wrap(signal, phasor)
+            wrap = fourierWrapProcessor.wrap(signal, freqsHz[index])
             mu = wrap.mean()
             freqAmp[index] = mu[0]
         return SignalBase(freqsHz, freqAmp)
