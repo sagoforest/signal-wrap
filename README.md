@@ -1,4 +1,5 @@
 # Signal Wrap
 
 
-![Sigmals](https://github.com/sagoforest/signal-wrap/wiki/images/signals.gif)
+![Signals](https://github.com/sagoforest/signal-wrap/wiki/images/signals.png)
+![Signal Wrap](https://github.com/sagoforest/signal-wrap/wiki/images/winding.png)
