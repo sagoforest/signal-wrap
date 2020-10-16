@@ -27,9 +27,10 @@ frequencyAmp = signalFactory.createFrequencyAmplitude(signalC,
 
 # the art corner
 initialWindingFrequencyHz = 1
-SignalsView().show([signalA, signalB, signalC])
+signalsView = SignalsView()
 interactive_view = InteractiveView(initialWindingFrequencyHz,
                                    lambda frequencyHz: wrapProcessor.wrap(signalC, frequencyHz))
-interactive_view.show(frequencyAmp)
 
+signalsView.show([signalA, signalB, signalC])
+interactive_view.show(frequencyAmp)
 UiUtil.show()
