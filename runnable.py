@@ -10,7 +10,7 @@ phasor = Phasor(1)
 signalFactory = SignalFactory()
 wrapProcessor = WrapProcessor(phasor)
 
-Ts = 6  # duration of the signals in seconds
+Ts = 5 # duration of the signals in seconds
 fs = 1000  # sampling frequency
 
 # generate some signals
