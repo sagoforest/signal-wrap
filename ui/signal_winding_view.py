@@ -14,4 +14,3 @@ class SignalWindingView(object):
         self.handle.set_ydata(signal.y)
         self.centroid_handle.set_xdata(centroid[0])
         self.centroid_handle.set_ydata(centroid[1])
-

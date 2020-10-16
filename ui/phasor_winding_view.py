@@ -7,7 +7,6 @@ class PhasorWindingView(object):
         self.ax.set_ylabel("Re[phasor]")
         self.handle, = ax.plot(0, 0, 'o', color="red")
 
-
     # the phasor winding plot
     def show(self, frequencyAmplitude):
         self.ax.plot(frequencyAmplitude.x, frequencyAmplitude.y)
