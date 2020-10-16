@@ -10,12 +10,12 @@ phasor = Phasor(1)
 signalFactory = SignalFactory()
 wrapProcessor = WrapProcessor(phasor)
 
-Ts = 12  # duration of the signals in seconds
+Ts = 6  # duration of the signals in seconds
 fs = 1000  # sampling frequency
 
 # generate some signals
 signalA = signalFactory.createSinusoid("Signal A", Ts, fs, 1, 0).offset(1)
-signalB = signalFactory.createSinusoid("Signal B", Ts, fs, 5.5, 0).offset(1)
+signalB = signalFactory.createSinusoid("Signal B", Ts, fs, 3.5, 0).offset(1)
 signalC = signalFactory.combineSignals("Signal A + B",
                                        signalA,
                                        signalB).scale(1/4)
